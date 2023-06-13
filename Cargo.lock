@@ -1301,17 +1301,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "gui-metronome"
-version = "1.1.2"
-dependencies = [
- "fruitbasket",
- "iced",
- "iced_native",
- "lazy_static",
- "rodio",
-]
-
-[[package]]
 name = "guillotiere"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1733,6 +1722,17 @@ dependencies = [
  "foreign-types 0.3.2",
  "log",
  "objc",
+]
+
+[[package]]
+name = "metronome"
+version = "1.1.2"
+dependencies = [
+ "fruitbasket",
+ "iced",
+ "iced_native",
+ "lazy_static",
+ "rodio",
 ]
 
 [[package]]
