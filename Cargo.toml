@@ -1,0 +1,14 @@
+[package]
+name = "metronome"
+version = "1.0.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+iced = {version = "0.9", features = ["smol"]}
+fruitbasket = "0.10"
+iced_native = "0.10"
+rodio = "0.17"
+lazy_static = "1.4"
+
