@@ -49,7 +49,11 @@ fn main() {
         .icon("Metronome")
         .version(env!("CARGO_PKG_VERSION"))
         .resource("assets/Metronome.icns")
-        .build(fruitbasket::InstallDir::SystemApplications)
+        .build(if cfg!(debug_assertions) {
+            fruitbasket::InstallDir::Custom(String::from("build"))
+        } else {
+            fruitbasket::InstallDir::SystemApplications
+        })
         .unwrap();
 
     Metronome::run(Settings::default()).unwrap();
@@ -251,7 +255,7 @@ impl Application for Metronome {
                     column![
                         column![
                             text(format!("{} BPM", self.bpm)).size(46),
-                            slider(30..=300, self.bpm, |v| Message::BPMUpdate(v)),
+                            slider(30..=300, self.bpm, |v| Message::BPMUpdate(v)).width(450.),
                             row(beats).spacing(5.0),
                         ]
                         .spacing(30.0)
@@ -278,7 +282,8 @@ impl Application for Metronome {
                             .spacing(5.0)
                         ]
                         .align_items(iced_native::Alignment::Center)
-                        .spacing(10.0),
+                        .spacing(10.0)
+                        .max_width(450),
                         button(
                             text(if self.state == MetroState::Stopped {
                                 "Start"
@@ -293,7 +298,6 @@ impl Application for Metronome {
                     ]
                     .spacing(30.0)
                     .align_items(iced_native::Alignment::Center)
-                    .max_width(450)
                 )
                 .height(Length::Fill)
                 .center_y()
