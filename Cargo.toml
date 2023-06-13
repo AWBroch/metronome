@@ -1,6 +1,6 @@
 [package]
 name = "metronome"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 license = "Apache-2.0"
 
@@ -8,8 +8,9 @@ license = "Apache-2.0"
 
 [dependencies]
 iced = {version = "0.9", features = ["smol"]}
-fruitbasket = "0.10"
 iced_native = "0.10"
 rodio = "0.17"
 lazy_static = "1.4"
 
+[target.'cfg(target_os = "macos")'.dependencies]
+fruitbasket = "0.10"

@@ -4,6 +4,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{self, Receiver, Sender};
 use std::time::Duration;
 
+#[cfg(target_os = "macos")]
 use fruitbasket::Trampoline;
 use iced::widget::{column, container, row, slider, text};
 use iced::{executor, time, Application, Command, Element, Settings, Theme};
@@ -43,6 +44,7 @@ lazy_static! {
 }
 
 fn main() {
+    #[cfg(target_os = "macos")]
     Trampoline::new("Metronome", "metronome", "com.brochweb.metronome")
         .icon("Metronome")
         .version(env!("CARGO_PKG_VERSION"))
