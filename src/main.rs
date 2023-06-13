@@ -45,7 +45,7 @@ lazy_static! {
 
 fn main() {
     #[cfg(target_os = "macos")]
-    Trampoline::new("Metronome", "metronome", "com.brochweb.metronome")
+    Trampoline::new("Metronome", "gui-metronome", "com.brochweb.metronome")
         .icon("Metronome")
         .version(env!("CARGO_PKG_VERSION"))
         .resource("assets/Metronome.icns")
