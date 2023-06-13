@@ -49,7 +49,7 @@ fn main() {
         .icon("Metronome")
         .version(env!("CARGO_PKG_VERSION"))
         .resource("assets/Metronome.icns")
-        .build(fruitbasket::InstallDir::Custom(String::from("build")))
+        .build(fruitbasket::InstallDir::SystemApplications)
         .unwrap();
 
     Metronome::run(Settings::default()).unwrap();
