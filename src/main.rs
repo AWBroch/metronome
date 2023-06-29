@@ -1,4 +1,3 @@
-use std::convert::identity;
 use std::io::Cursor;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{self, Receiver, Sender};
@@ -321,7 +320,7 @@ enum Beat {
 
 fn player_thread(rx: Receiver<Beat>, volume: f32, vol_rx: Receiver<f32>) {
     let mut volume = volume;
-    let (stream, stream_handle) = OutputStream::try_default().unwrap();
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
     while let Ok(beat) = rx.recv() {
         while let Ok(new_vol) = vol_rx.try_recv() {
             volume = new_vol;
@@ -337,5 +336,4 @@ fn player_thread(rx: Receiver<Beat>, volume: f32, vol_rx: Receiver<f32>) {
             )
             .unwrap();
     }
-    identity(stream);
 }
