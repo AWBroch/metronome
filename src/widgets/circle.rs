@@ -1,5 +1,12 @@
+use iced::{
+    advanced::{
+        layout::{self, Layout},
+        renderer,
+        widget::{self, Widget},
+    },
+    mouse::Cursor,
+};
 use iced::{Color, Element, Length, Rectangle, Size};
-use iced_native::{layout, renderer, widget, Layout, Point, Widget};
 
 pub struct Circle {
     radius: f32,
@@ -18,7 +25,7 @@ pub fn circle(radius: f32, color: Color) -> Circle {
 
 impl<Message, Renderer> Widget<Message, Renderer> for Circle
 where
-    Renderer: iced_native::Renderer,
+    Renderer: iced::advanced::Renderer,
 {
     fn width(&self) -> Length {
         Length::Shrink
@@ -39,7 +46,7 @@ where
         _theme: &Renderer::Theme,
         _style: &renderer::Style,
         layout: Layout<'_>,
-        _cursor: Point,
+        _cursor: Cursor,
         _viewport: &Rectangle,
     ) {
         renderer.fill_quad(

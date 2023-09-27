@@ -1,6 +1,6 @@
 [package]
 name = "metronome"
-version = "1.1.2"
+version = "1.2.0"
 edition = "2021"
 license = "Apache-2.0"
 repository = "https://github.com/AWBroch/metronome"
@@ -10,10 +10,10 @@ description = "A cross-platform, lightweight, but flexible GUI metronome"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-iced = {version = "0.9", features = ["smol"]}
-iced_native = "0.10"
+iced = { version = "0.10", features = ["smol", "advanced"] }
 rodio = "0.17"
 lazy_static = "1.4"
+rsbmalloc = "0.4.3"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 fruitbasket = "0.10"

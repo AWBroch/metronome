@@ -5,15 +5,14 @@ use std::time::Duration;
 
 #[cfg(target_os = "macos")]
 use fruitbasket::Trampoline;
-use iced::widget::{column, container, row, slider, text};
-use iced::{executor, time, Application, Command, Element, Settings, Theme};
-use iced_native::widget::{button, checkbox, vertical_space};
-use iced_native::{color, Length};
+use iced::widget::{button, checkbox, column, container, row, slider, text, vertical_space};
+use iced::{color, executor, time, Application, Command, Element, Length, Settings, Theme};
 use lazy_static::lazy_static;
 use rodio::{
     source::{Buffered, SamplesConverter},
     Decoder, OutputStream, Source,
 };
+use rsbmalloc::RSBMalloc;
 use widgets::circle;
 
 mod widgets;
@@ -23,6 +22,9 @@ const E_FLAT_CLICK: &'static [u8] = include_bytes!("../assets/e-flat-click.wav")
 const F_CLICK: &'static [u8] = include_bytes!("../assets/f-click.wav");
 
 static OFF_BEAT: AtomicBool = AtomicBool::new(true);
+
+#[global_allocator]
+static GLOBAL_ALLOCATOR: RSBMalloc = RSBMalloc::new();
 
 lazy_static! {
     static ref E_CLICK_SOURCE: Buffered<SamplesConverter<Decoder<Cursor<&'static [u8]>>, f32>> =
@@ -249,7 +251,7 @@ impl Application for Metronome {
                 vertical_space(25.0),
                 text("Metronome")
                     .size(72)
-                    .horizontal_alignment(iced_native::alignment::Horizontal::Center),
+                    .horizontal_alignment(iced::alignment::Horizontal::Center),
                 container(
                     column![
                         column![
@@ -258,7 +260,7 @@ impl Application for Metronome {
                             row(beats).spacing(5.0),
                         ]
                         .spacing(30.0)
-                        .align_items(iced_native::Alignment::Center),
+                        .align_items(iced::Alignment::Center),
                         column![
                             text(format!("{} beats per bar", self.bar)),
                             slider(2..=16, self.bar, |v| Message::BarUpdate(v)),
@@ -270,7 +272,7 @@ impl Application for Metronome {
                                 checkbox("Off-beats", self.off_beats, |val| Message::OffBeats(val))
                                     .width(Length::FillPortion(1))
                             ]
-                            .align_items(iced_native::Alignment::Center)
+                            .align_items(iced::Alignment::Center)
                             .width(450),
                             "Volume:",
                             row![
@@ -280,7 +282,7 @@ impl Application for Metronome {
                             ]
                             .spacing(5.0)
                         ]
-                        .align_items(iced_native::Alignment::Center)
+                        .align_items(iced::Alignment::Center)
                         .spacing(10.0)
                         .max_width(450),
                         button(
@@ -290,19 +292,19 @@ impl Application for Metronome {
                                 "Stop"
                             })
                             .size(32)
-                            .horizontal_alignment(iced_native::alignment::Horizontal::Center)
+                            .horizontal_alignment(iced::alignment::Horizontal::Center)
                         )
                         .width(150.0)
                         .on_press(Message::Toggle)
                     ]
                     .spacing(30.0)
-                    .align_items(iced_native::Alignment::Center)
+                    .align_items(iced::Alignment::Center)
                 )
                 .height(Length::Fill)
                 .center_y()
                 .center_x(),
             ]
-            .align_items(iced_native::Alignment::Center),
+            .align_items(iced::Alignment::Center),
         )
         .width(Length::Fill)
         .height(Length::Fill)
